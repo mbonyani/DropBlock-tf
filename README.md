@@ -1,6 +1,6 @@
 # DropBlock-tf
 This is a TensorFlow implementation of the following paper: DropBlock: A regularization method for convolutional networks
-
+>arXiv. https://arxiv.org/abs/1810.12890
 
 ```python
 import numpy as np

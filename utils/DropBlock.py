@@ -7,11 +7,21 @@ def _bernoulli(shape, mean):
 
 
 class DropBlock2D(tf.keras.layers.Layer):
-    def __init__(self, keep_prob, block_size, scale=True, **kwargs):
-        super(DropBlock2D, self).__init__(**kwargs)
+    def __init__(self, keep_prob, block_size, scale=True,name=None, **kwargs):
+        super(DropBlock2D, self).__init__(name="DropBlock2D")
         self.keep_prob = float(keep_prob) if isinstance(keep_prob, int) else keep_prob
         self.block_size = int(block_size)
+        self.names = name
         self.scale = tf.constant(scale, dtype=tf.bool) if isinstance(scale, bool) else scale
+        super(DropBlock2D, self).__init__(**kwargs)
+        
+    def get_config(self):
+        config = super().get_config().copy()
+        config.update( {"block_size": self.block_size,"keep_prob": self.keep_prob,"name": self.names })
+
+        
+        
+        return config
 
     def compute_output_shape(self, input_shape):
         return input_shape
@@ -64,11 +74,12 @@ class DropBlock2D(tf.keras.layers.Layer):
 
 
 class DropBlock3D(tf.keras.layers.Layer):
-    def __init__(self, keep_prob, block_size, scale=True, **kwargs):
-        super(DropBlock3D, self).__init__(**kwargs)
+    def __init__(self, keep_prob, block_size, scale=True,name=None, **kwargs):
+        super(DropBlock3D, self).__init__(name="DropBlock3D")
         self.keep_prob = float(keep_prob) if isinstance(keep_prob, int) else keep_prob
         self.block_size = int(block_size)
         self.scale = tf.constant(scale, dtype=tf.bool) if isinstance(scale, bool) else scale
+        super(DropBlock3D, self).__init__(**kwargs)
 
     def compute_output_shape(self, input_shape):
         return input_shape
